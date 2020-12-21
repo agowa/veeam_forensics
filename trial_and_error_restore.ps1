@@ -14,6 +14,11 @@ param(
 # From what I've seen when restoring a file results in a driver hickup once, it will always cause one. Therefore you may want to use a tool that just attempts one single read of each file.
 # I used Total Commander over a SSH connection from another computer to perform this copy operation, that's why it's not done within this script.
 
+# Note2: This script is only for backup files that are damaged in such a way that Veeam still considers them valid even after validating
+# After talking to veeam support it was clear that the validation does not check the data content but only header informations.
+# Also veeam support acknowledged that this "should never have happened" and that "this backup is non restorable" but also that there is no other way than trial and error based
+# attempts to restore the files one by one...
+
 if ([bool](Get-PSSnapin -Registered -Name "VeeamPSSnapIn" -ErrorAction SilentlyContinue)) {
   Add-PSSnapin -Name "VeeamPSSnapIn"
 } else {
